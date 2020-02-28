@@ -43,5 +43,5 @@ private:
 	UTankBarrel* Barrel = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 100000; // TODO find sendible default
+	float LaunchSpeed = 400000; // TODO find sendible default
 };
