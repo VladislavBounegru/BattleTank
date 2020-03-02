@@ -22,19 +22,7 @@ class BATTLETANK_API ATankAIController : public AAIController
 	
 private:
 	virtual void BeginPlay() override;
+
 	virtual void Tick(float DeltaTime) override;
 
-
-	ATank* GetAITank() const;
-
-	ATank* GetPlayerTank() const;
-
-	
-
-
-	UPROPERTY(EditAnywhere)
-		float CrossHairXLocation = 0.5f;
-
-	UPROPERTY(EditAnywhere)
-		float CrossHairYLocation = 0.33333f;
 };

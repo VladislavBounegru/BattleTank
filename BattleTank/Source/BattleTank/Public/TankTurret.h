@@ -18,6 +18,6 @@ public:
     void CircularMotion(float RelativeSpeed);
 
 private:
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditDefaultsOnly)
     float MaxDegreesPerSecond = 12;
 };

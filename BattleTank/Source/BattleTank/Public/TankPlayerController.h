@@ -26,7 +26,7 @@ private:
 		virtual void Tick(float DeltaTime) override;
 		// Start the tank moving the barrel so that a shot would it where
 		// the crosshair intersects the world
-		void Aimtowardscrosshair();
+		void AimTowardsCrosshair();
 
 		bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
@@ -34,12 +34,12 @@ private:
 
 		bool GetLookVectorHitLocation(FVector& HitLocation, FVector LookDirection) const;
 
-		UPROPERTY(EditAnywhere)
+		UPROPERTY(EditDefaultsOnly)
 		float CrossHairXLocation = 0.5f;
 
-		UPROPERTY(EditAnywhere)
+		UPROPERTY(EditDefaultsOnly)
 		float CrossHairYLocation = 0.33333f;
 
-		UPROPERTY(EditAnywhere)
+		UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000.f;
 };
