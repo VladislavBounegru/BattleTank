@@ -1,20 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TankMovementComponent.h"
+
 #include "TankTrack.h"
-#include "Math/Vector.h"
+#include "TankMovementComponent.h"
 
-
-void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet )
+void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	if (!ensure(LeftTrackToSet &&RightTrackToSet)) { return; }
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;
 }
 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
+	// No need to call Super as we're replacing the functionality
+
 	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
 
@@ -27,18 +27,14 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	if(!ensure (LeftTrack && RightTrack))
-	{
-		RightTrack->SetThrottle(Throw);
-		LeftTrack->SetThrottle(Throw);
-	}
+	if (!ensure(LeftTrack && RightTrack)) { return; }
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(Throw);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-	if (!ensure(LeftTrack && RightTrack))
-	{
-		RightTrack->SetThrottle(-Throw);
-		LeftTrack->SetThrottle(Throw);
-	}
+	if (!ensure(LeftTrack && RightTrack)) { return; }
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
 }

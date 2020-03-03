@@ -9,7 +9,7 @@
 #include "Engine/World.h"
 #include "TankPlayerController.generated.h"
 
-class ATank;
+
 class UTankAimingComponent;
 /**
  * 
@@ -20,12 +20,13 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 protected:
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	ATank* GetControlledTank() const;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = Setup)
 	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
+
+	UPROPERTY(BlueprintReadOnly)
+	UTankAimingComponent* TankAimingComponent = nullptr;
 private:
 	virtual void BeginPlay()  override;
 
@@ -48,4 +49,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float LaunchSpeed = 4000; // TODO find sendible default
+
+	
 };

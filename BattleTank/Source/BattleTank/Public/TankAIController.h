@@ -3,14 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TankPlayerController.h"
-#include "GameFramework/Controller.h"
+
 #include "AIController.h"
-#include "Engine/World.h"
-#include "Engine/EngineTypes.h"
 #include "TankAIController.generated.h"
 
-class ATank;
+class UTankAimingComponent;
 
 /**
  * 
@@ -20,11 +17,16 @@ class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 	
+protected:
+	UPROPERTY(BlueprintReadOnly)
+	UTankAimingComponent* TankAimingComponent = nullptr;
 private:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditDefaultsOnly)
-		float AcceptanceRadius = 3000.f;
+	float AcceptanceRadius = 3000.f;
+
+	
 };

@@ -36,7 +36,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 
 public:	
 
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
 
 	void GetProjectileVelocity(FVector HitLocation, float LaunchSpeed);
@@ -55,6 +55,8 @@ private:
 
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float LaunchSpeed = 4000; // TODO find sendible default
 
 	void MoveBarrelTowards(FVector AimDirection);
 
