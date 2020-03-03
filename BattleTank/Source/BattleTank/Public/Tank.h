@@ -9,8 +9,6 @@
 class UTankBarrel;
 class UTankAimingComponent;
 class AProjectile;
-class UTankTrack;
-class UTankMovementComponent;
 
 
 UCLASS()
@@ -24,19 +22,12 @@ public:
 
 	void AimAt(FVector HitLocation);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTrackReference(UTankTrack* TrackToSet);
-
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
 protected:
-
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* TankMovementComponent = nullptr;
+	virtual void BeginPlay()  override;
+	
 
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
@@ -44,12 +35,9 @@ protected:
 	
 
 private:	
-	// Called every frame
 
-
-
-
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	// TODO remove once	FIRNIG IS MOVED TO AIMING component
+	UPROPERTY(EditDefaultsOnly, Category = Firing)			
 	float LaunchSpeed = 4000; // TODO find sendible default
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)

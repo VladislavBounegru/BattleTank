@@ -1,57 +1,51 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "TankBarrel.h"
-#include "TankTrack.h"
 #include "Projectile.h"
 #include "TankAimingComponent.h"
 #include "TankMovementComponent.h"
 #include "Tank.h"
 
+
 // Sets default values
 ATank::ATank()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-
-
-	//TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
+	auto TankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Construct"), *TankName)
 }
 
-// Called every frame
+void ATank::BeginPlay()
+{
+	Super::BeginPlay(); // Needed for BP Begin Play to run!
+
+	auto TankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Begin Play"), *TankName);
+
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+}
 
 void ATank::AimAt(FVector HitLocation)
-
 {
+	if (!ensure(TankAimingComponent)) { return; }
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
-}
-
-
-void ATank::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
-{
-	TankAimingComponent->Initialise(BarrelToSet, TurretToSet);
-	Barrel = BarrelToSet;
-}
-
-void ATank::SetTrackReference(UTankTrack* TrackToSet) 
-{
-
 }
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel)) { return; }
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (Barrel && isReloaded)
+
+	if (isReloaded)
 	{
-		FActorSpawnParameters SpawnInfo;
+		// Spawn a projectile at the socket location on the barrel
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,
 			Barrel->GetSocketLocation(FName("Projectile")),
-			Barrel->GetSocketRotation(FName("Projectile")),
-			SpawnInfo
+			Barrel->GetSocketRotation(FName("Projectile"))
 			);
+
 		Projectile->LaunchProjectile(LaunchSpeed);
-		// Spawn a projecti;e at the socket location;
 		LastFireTime = FPlatformTime::Seconds();
 	}
 }
