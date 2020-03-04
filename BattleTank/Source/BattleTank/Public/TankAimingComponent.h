@@ -55,6 +55,8 @@ protected:
 
 private:
 	UTankAimingComponent();
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
@@ -69,9 +71,9 @@ private:
 
 	// reference to spawn projectile
 	double LastFireTime = 0;
+	FVector AimDirectionGlobal = FVector(0);
 
-
-
+	bool IsBarrelMoving();
 	void MoveBarrelTowards(FVector AimDirection);
 	
 
