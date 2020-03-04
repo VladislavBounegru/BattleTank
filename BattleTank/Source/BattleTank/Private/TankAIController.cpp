@@ -29,7 +29,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 
 	//TODO fix firing
-	//ControlledTank->Fire(); // TODO limit firing rate
+	AimingComponent->Fire(); // TODO limit firing rate
 	
 }
 

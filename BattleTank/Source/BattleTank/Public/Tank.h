@@ -19,35 +19,9 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 
-	
-
-	UFUNCTION(BlueprintCallable, Category = Firing)
-	void Fire();
-
 protected:
 	virtual void BeginPlay()  override;
 	
-
-
-
-	
-
 private:	
 
-	// TODO remove once	FIRNIG IS MOVED TO AIMING component
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float LaunchSpeed = 4000; // TODO find sendible default
-
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	TSubclassOf<AProjectile> ProjectileBlueprint;
-
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float ReloadTimeInSeconds = 3.f;
-
-	// reference to spawn projectile
-	UTankBarrel* Barrel = nullptr; // TODO remove
-
-	
-
-	double LastFireTime = 0;
 };
