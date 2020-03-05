@@ -13,9 +13,6 @@ enum class EFiringState : uint8
 	OutOfAmmo
 };
 
-
-
-
 // Forward Declaration
 class UTankBarrel;
 class UTankTurret;
