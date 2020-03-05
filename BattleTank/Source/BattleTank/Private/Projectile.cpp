@@ -4,6 +4,10 @@
 #include "Projectile.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "PhysicsEngine/RadialForceComponent.h"
+#include "TimerManager.h"
+#include "Delegates/DelegateInstancesImpl.h"
+
 #include "Engine/EngineTypes.h"
 
 
@@ -28,6 +32,9 @@ AProjectile::AProjectile()
 
 	ProjectileMovement = CreateDefaultSubobject <UProjectileMovementComponent>(FName("Projectile Movement Component"));
 	ProjectileMovement->bAutoActivate = false;
+
+	ExplossionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explossion Force"));
+	ExplossionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 // Called when the game starts or when spawned
@@ -48,6 +55,18 @@ void AProjectile::LaunchProjectile(float Speed)
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
+	
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
+	ExplossionForce->FireImpulse();
+	SetRootComponent(ImpactBlast);
+	CollisionMesh->DestroyComponent();
+
+	FTimerHandle  Timer;
+	GetWorld()->GetTimerManager().SetTimer(Timer,this,&AProjectile::OnTimerExpired,DestroyDelay,false);
+}
+
+void AProjectile::OnTimerExpired()
+{
+	Destroy();
 }
