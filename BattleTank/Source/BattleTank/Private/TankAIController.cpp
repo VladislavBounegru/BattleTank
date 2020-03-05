@@ -1,8 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
-#include "TankAimingComponent.h"
 #include "TankAIController.h"
+#include "TankAimingComponent.h"
 #include "GameFramework/Controller.h"
 #include "Engine/World.h"
 #include "Engine/EngineTypes.h"
@@ -29,8 +28,11 @@ void ATankAIController::Tick(float DeltaTime)
 
 
 	//TODO fix firing
-	AimingComponent->Fire(); // TODO limit firing rate
-	
+
+	if (AimingComponent->GetFiringState() == EFiringState::Locked)
+	{
+		AimingComponent->Fire(); // TODO limit firing rate
+	}
 }
 
 

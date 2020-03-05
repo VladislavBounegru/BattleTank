@@ -15,17 +15,12 @@ UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
-	
-protected:
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
+
 private:
 	virtual void BeginPlay() override;
 
-	virtual void Tick(float DeltaTime) override;
+	virtual void Tick(float DeltaSeconds) override;
 
-	UPROPERTY(EditDefaultsOnly)
-	float AcceptanceRadius = 3000.f;
-
-	
+	UPROPERTY(EditAnywhere, Category = Setup)
+	float AcceptanceRadius = 80000.f;
 };
