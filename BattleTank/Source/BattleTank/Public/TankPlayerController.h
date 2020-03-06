@@ -35,6 +35,8 @@ private:
 	// the crosshair intersects the world
 	void AimTowardsCrosshair();
 
+	virtual void SetPawn(APawn* InPawn) override;
+
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
@@ -54,4 +56,7 @@ private:
 	float LaunchSpeed = 4000; // TODO find sendible default
 
 	
+
+	UFUNCTION()
+	void OnPlayerTankDeath();
 };
